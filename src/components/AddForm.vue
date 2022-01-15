@@ -61,7 +61,9 @@ export default {
         barcode: this.code,
         name: this.name,
         createdAt: serverTimestamp()
-      })
+      }).catch(e => alert(e))
+
+      this.$router.push('/list')
       
     }
   }
