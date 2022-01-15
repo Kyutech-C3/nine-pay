@@ -1,7 +1,7 @@
 <template>
   <div class="main-area">
     <Button class="button-wrapper" text="ねる" link="/sleep" />
-    <p class="point">63P</p>
+    <p class="point">{{ points }}P</p>
     <Button class="button-wrapper" text="冷蔵庫" link="/list" />
   </div>
 </template>
@@ -12,16 +12,28 @@ import Button from '../components/ButtonCircle.vue'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export default {
-  components: {
-    Button
+  data() {
+    return {
+      points: -1,
+    }
   },
-  created(){
+  components: {
+    Button,
+  },
+  async created() {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       console.log(user)
-      if(user === null){
-        this.$router.push("/login")
+      if (user === null) {
+        this.$router.push('/login')
       }
+      const uid = user.uid
+      console.log(user)
+      const docref = doc(getFirestore(), 'users', uid)
+      const docSnap = await getDoc(docref)
+      const d = docSnap.data()
+      this.points = d.points
+      console.debug(d)
     })
   },
   async mounted() {
@@ -29,15 +41,15 @@ export default {
     const docRef = doc(db, 'test', 'hoge')
     const docSnap = await getDoc(docRef)
 
-    if(docSnap.exists()) {
+    if (docSnap.exists()) {
       console.log(docSnap.data())
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
-.main-area{
+.main-area {
   width: 100%;
   height: calc(100vh - 80px);
   background: #e3f6f5;
@@ -45,10 +57,10 @@ export default {
   flex-flow: column;
   text-align: center;
 }
-.button-wrapper{
+.button-wrapper {
   margin: 60px auto;
 }
-.point{
+.point {
   font-size: 40px;
 }
 </style>
