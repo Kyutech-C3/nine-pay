@@ -7,11 +7,21 @@
 
 <script>
 import HelloWorld from '../components/HelloWorld.vue'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  async mounted() {
+    const db = getFirestore()
+    const docRef = doc(db, 'test', 'hoge')
+    const docSnap = await getDoc(docRef)
+
+    if(docSnap.exists()) {
+      console.log(docSnap.data())
+    }
   }
 }
 </script>
