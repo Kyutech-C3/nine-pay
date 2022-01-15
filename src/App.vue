@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+
 body {
   margin: 0;
 }
@@ -28,7 +30,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
+  margin-top: 60px;  
   background-color: #e3f6f5;
 }
 </style>
