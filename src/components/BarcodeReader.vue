@@ -1,11 +1,10 @@
 <template>
   <div>
+    <h1>バーコードをかざしてください</h1>
     <div class="cameraArea" ref="cameraArea">
-      <img ref="resultImg" v-show="code.length" src="" alt="result" class="resultImg" />
+      <img ref="resultImg" src="" alt="result" class="resultImg" />
     </div>
-    <p v-if="code.length" class="getMessage">取得できました</p>
-    <p class="resultCode">{{ code }}</p>
-    <button @click="retryScan">Retry</button>
+    <button v-if="code.length > 0" @click="retryScan">Retry</button>
   </div>
 </template>
 
@@ -66,6 +65,7 @@ export default Vue.extend({
     },
     onDetected(success) {
       this.code = success.codeResult.code;
+      this.$emit('code', this.code)
       // 取得時の画像を表示
       // this.resultImg.setAttribute("src", this.Quagga.canvas.dom.image.toDataURL());
       console.debug(this.resultImg)
