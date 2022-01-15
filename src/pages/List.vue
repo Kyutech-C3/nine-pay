@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <h1>冷蔵庫</h1>
-    <h2>136P</h2>
+    <h2>{{points}}P</h2>
 
     <table class="tbl">
       <thead>
@@ -12,10 +12,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="item">
+        <tr v-for="(data, index) in datas" :key="data.name">
           <td>{{ index + 1 }}</td>
-          <td>{{ item.items_box.title }}</td>
-          <td>{{ item.items_box.code }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.barcode }}</td>
         </tr>
       </tbody>
     </table>
@@ -23,55 +23,37 @@
 </template>
 
 <script>
+import { getDocs,getDoc, getFirestore, collection, doc} from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 export default {
   data() {
     return {
-      items: [
-        {
-          items_box: {
-            title: 'お茶あああああああああああああああああああああああああああ',
-            code: '34567',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '3456723456',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '34567',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '34567',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '34567',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '34567',
-          },
-        },
-        {
-          items_box: {
-            title: 'お茶',
-            code: '34567',
-          },
-        },
-      ],
+      datas: [],
+      points: -1,
+      temppoints: -1
     }
   },
+  async created() {
+    onAuthStateChanged(
+      getAuth(),
+      async (user) => {
+        console.log(user)
+        const uid = user.uid
+        const thingsCollection = collection(getFirestore(), 'users', uid, 'things')
+        const docs = await getDocs(thingsCollection)
+        this.datas = docs.docs.map(d => d.data())
+        console.debug(this.datas)
+        console.log(user)
+        this.user = user
+        const docref = doc(getFirestore(), 'users', uid)
+        const docSnap = await getDoc(docref)
+        const d = docSnap.data()
+        this.points = d.points
+        console.debug(d)
+      })
+    },
+  
+  
 }
 </script>
 
