@@ -4,7 +4,7 @@
     <div class="cameraArea" ref="cameraArea">
       <img v-show="code.length > 0" ref="resultImg" src="" class="resultImg" />
     </div>
-    <button v-if="code.length > 0" @click="retryScan">Retry</button>
+    <button v-if="code.length > 0" class="retry-button" @click="retryScan">Retry</button>
   </div>
 </template>
 
@@ -98,13 +98,6 @@ export default Vue.extend({
 .cameraArea .drawingBuffer {
   position: absolute;
 }
-button {
-  width: 100px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #333;
-  margin-top: 30px;
-}
 .resultImg {
   width: 100%;
 }
@@ -115,5 +108,8 @@ button {
 }
 .getMessage {
   color: red;
+}
+.retry-button {
+  margin-top: 1rem;
 }
 </style>

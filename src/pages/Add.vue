@@ -1,7 +1,7 @@
 <template>
   <div>
     <barcode-reader @code="onCode"/>
-    <add-form :code="this.code" />
+    <add-form class="add-form" :code="this.code" />
   </div>
 </template>
 
@@ -29,6 +29,10 @@ export default {
 </script>
 
 <style scoped>
+.add-form {
+  margin: 1rem 0;
+  padding: 2rem;
+}
 .logo {
   width: 5rem;
 }

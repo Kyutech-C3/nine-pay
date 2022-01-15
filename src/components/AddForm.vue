@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="form">
     <div>
-      <label>JANコード</label>
-      <input type="text" :value="code" disabled>
+      <div class="form-label">JANコード</div>
+      <div>{{ code === null ? '-' : code }}</div>
     </div>
     <div>
-      <label>名称</label>
+      <div class="form-label">名称</div>
       <input type="text" v-model="name">
     </div>
     <button @click="submit">冷蔵庫に入れる</button>
@@ -70,4 +70,14 @@ export default {
 }
 </script>
 <style scoped>
+.form {
+  background-color: #fff;
+}
+.form input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.form-label {
+  font-weight: 800;
+}
 </style>
