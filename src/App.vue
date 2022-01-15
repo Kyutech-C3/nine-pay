@@ -21,7 +21,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
 
-body {
+*, body {
   margin: 0;
 }
 #app {
