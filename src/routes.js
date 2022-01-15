@@ -1,5 +1,5 @@
 import Index from './pages/Index'
-import About from './pages/About'
+import Sleep from './pages/Sleep'
 
 export const routes = [
   {
@@ -8,8 +8,8 @@ export const routes = [
     component: Index
   },
   {
-    path: '/about',
-    name: 'about',
-    component: About
+    path: '/sleep',
+    name: 'sleep',
+    component: Sleep
   },
 ]
