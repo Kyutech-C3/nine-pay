@@ -4,7 +4,7 @@
     <div class="cameraArea" ref="cameraArea">
       <img v-show="code.length > 0" ref="resultImg" src="" class="resultImg" />
     </div>
-    <button v-if="code.length > 0" class="retry-button" @click="retryScan">Retry</button>
+    <button v-if="code.length > 0" class="btn retry-button" @click="retryScan">Retry</button>
   </div>
 </template>
 

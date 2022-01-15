@@ -8,7 +8,7 @@
       <div class="form-label">名称</div>
       <input type="text" v-model="name">
     </div>
-    <button @click="submit">冷蔵庫に入れる</button>
+    <button class="btn" @click="submit">冷蔵庫に入れる</button>
   </div>
 </template>
 <script>

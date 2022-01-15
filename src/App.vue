@@ -33,7 +33,7 @@ export default {
   background-color: #e3f6f5;
 }
 
-button {
+.btn {
   padding: .5rem 1rem;
   background-color: #bbb;
   border: none;
