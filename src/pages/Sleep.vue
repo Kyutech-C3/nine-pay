@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { doc, getDoc, getFirestore, updateDoc, doc, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, getFirestore, updateDoc, onSnapshot } from '@firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import NFCReader from "../components/NFCReader.vue";
 import { getUser } from "../plugins/auth";
@@ -51,8 +51,8 @@ export default {
               const d = snapshot.data()
               this.points = d.points
               console.debug(d)
-            })
-          })
+            }
+          )
         }
       )
     },
