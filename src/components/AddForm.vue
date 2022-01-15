@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { collection, getFirestore, serverTimestamp, addDoc, where, query, getDocs } from '@firebase/firestore'
+import { collection, getFirestore, serverTimestamp, addDoc, where, query, getDocs, deleteDoc } from '@firebase/firestore'
 export default {
   name: 'AddForm',
   props: {
@@ -24,6 +24,19 @@ export default {
   data() {
     return {
       name: ''
+    }
+  },
+  watch: {
+    async code() {
+      const docs = await this.checkAlreadyRegisterd()
+      if(docs !== null) {
+        const doc = docs[0]
+        if(confirm(`${doc.get('name')}は冷蔵庫に入っています。\n取り出しますか？`)) {
+          await deleteDoc(doc.ref).catch(e => alert(e))
+          alert('削除しました')
+          this.$router.push('/list')
+        }
+      }
     }
   },
   methods: {
@@ -42,12 +55,6 @@ export default {
         return
       }
 
-      const docs = await this.checkAlreadyRegisterd()
-      if(docs !== null) {
-        const doc = docs[0]
-        alert('すでに同じ物が冷蔵庫に入っています', doc.get('name'))
-        return
-      }
 
       if(this.name === '') {
         alert('名前を入力してください')
