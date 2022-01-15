@@ -1,22 +1,21 @@
 <template>
-    <div class="button-wrapper">
-        <a :href="link" class="button">
-                {{text}}
-            </a>
-    </div>
+  <router-link class="button-circle" :to="link">
+    {{text}}
+  </router-link>
 </template>
 
 <script>
 export default {
-    props: {
-        text: String,
-        link: String
-    }
+  props: {
+    text: String,
+    link: String
+  }
 }
 </script>
 
 <style scoped>
-.button{
+.button-circle {
+  font-size: 35px;
   display: inline-block;
   text-decoration: none;
   background: #fffde8;
@@ -31,8 +30,5 @@ export default {
   border: dashed 2px #ffb03f;
   transition: .4s;
   box-shadow: 3px 3px 10px silver;
-}
-.button-wrapper{
-    font-size: 35px;
 }
 </style>
