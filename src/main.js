@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import { routes } from './routes'
 import { initializeApp } from 'firebase/app'
+import authState from './plugins/auth'
 
 Vue.config.productionTip = false
 
@@ -26,6 +27,8 @@ var firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig)
 export { firebaseApp }
+
+Vue.use(authState)
 
 new Vue({
   router,
