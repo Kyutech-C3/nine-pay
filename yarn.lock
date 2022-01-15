@@ -5596,6 +5596,11 @@ javascript-stringify@^2.0.1:
   resolved "https://registry.nlark.com/javascript-stringify/download/javascript-stringify-2.1.0.tgz"
   integrity sha1-J8dlOb4U2L0Sghmi1zGwkzeQTnk=
 
+jest-get-type@^22.4.3:
+  version "22.4.3"
+  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-22.4.3.tgz#e3a8504d8479342dd4420236b322869f18900ce4"
+  integrity sha512-/jsz0Y+V29w1chdXVygEKSz2nBoHoYqNShPe+QgxSNjAuP1i8+k4LbQNrfoliKej0P45sivkSCh7yiD6ubHS3w==
+
 jpeg-js@^0.4.1:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.4.3.tgz#6158e09f1983ad773813704be80680550eff977b"
@@ -8981,6 +8986,14 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npm.taobao.org/vm-browserify/download/vm-browserify-1.1.2.tgz"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
 
+vue-100vh@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/vue-100vh/-/vue-100vh-0.1.1.tgz#6bf39425474966515ee10a2aeaf081b2690ae72f"
+  integrity sha512-M4u9hDNarnOelaKvYecjBJi1od4WGYMUgSJosZhFYWkcoFqmx8DR8sgyaJWDBaKWZLuTMnklWN/pLaLZDEQWFg==
+  dependencies:
+    jest-get-type "^22.4.3"
+    vue "^2.6"
+
 vue-eslint-parser@^7.0.0:
   version "7.11.0"
   resolved "https://registry.npmmirror.com/vue-eslint-parser/download/vue-eslint-parser-7.11.0.tgz"
@@ -9045,7 +9058,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npmmirror.com/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-vue@^2.6.14:
+vue@^2.6, vue@^2.6.14:
   version "2.6.14"
   resolved "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
