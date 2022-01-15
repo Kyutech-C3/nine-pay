@@ -8,3 +8,11 @@ const authState = (Vue) => {
   })
 }
 export default authState
+
+export const getUser = () => new Promise((resolve) => {
+  const auth = getAuth()
+  onAuthStateChanged(auth, (user) => {
+    // console.debug(user)
+    resolve(user)
+  })
+})
