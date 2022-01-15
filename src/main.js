@@ -4,6 +4,7 @@ import App from './App.vue'
 import { routes } from './routes'
 import { initializeApp } from 'firebase/app'
 import authState from './plugins/auth'
+import './registerServiceWorker';
 
 Vue.config.productionTip = false
 
