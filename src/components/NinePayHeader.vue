@@ -1,64 +1,63 @@
 <template>
-  <div>
-    <div class="button" v-if="$route.path !== '/'">
-      <a href="/" class="back-button">もどる</a>
-    </div>
+  <div class="header">
+    <a v-if="$route.path !== '/'" class="button back" @click="$router.back()">
+      <font-awesome-icon icon="arrow-left" size="3x" />
+    </a>
     <div class="logo-wrapper">
-      <div class="logo-NINE">NINE</div>
-      <div class="logo-Pay">Pay</div>
+      <p class="logo-NINE">NINE</p>
+      <p class="logo-Pay">Pay</p>
     </div>
+    <router-link v-if="$route.path === '/list'" to="/add" class="button add">
+      <font-awesome-icon icon="plus" size="3x" />
+    </router-link>
   </div>
 </template>
 
 <script></script>
 
 <style scoped>
-.logo-wrapper {
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   width: 100%;
   height: 78px;
   background: white;
   border-bottom: solid 2px #2c3e50;
+}
+.logo-wrapper {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.logo-text {
-  width: 100%;
+  font-family: 'Yu Gothic UI', sans-serif;
+  font-weight: bold;
 }
 .logo-NINE {
   font-size: 40px;
-  font-weight: bold;
-  font-family: 'Yu Gothic UI', sans-serif;
 }
 .logo-Pay {
   width: 65px;
   height: 50px;
   margin-left: 20px;
   font-size: 32px;
-  font-weight: bold;
   background: #06c755;
   color: white;
-  font-family: 'Yu Gothic UI', sans-serif;
 }
 .button {
+  margin: 15px;
   position: absolute;
-  margin: 10px;
+  top: 0;
+  transition: 0.2s;
+  color: black;
 }
-
-.back-button {
-  display: inline-block;
-  text-decoration: none;
-  background: #fab47a;
-  color: rgb(0, 0, 0);
-  width: 60px;
-  height: 60x;
-  line-height: 60px;
-  border-radius: 50%;
-  text-align: center;
-  overflow: hidden;
-  transition: 0.4s;
+.button:hover {
+  color: #ff8e3c;
 }
-.back-button:hover {
-  background-color: #ff8e3c;
+.back {
+  left: 0;
+}
+.add {
+  right: 0;
 }
 </style>
