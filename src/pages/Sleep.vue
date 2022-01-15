@@ -1,5 +1,6 @@
 <template>
   <body class="hachimaru">
+    <NFCReader @addPoints="updatePoints" />   
     <div class="HP-container">  
       <div class="HP">
         {{ point }}
@@ -22,23 +23,37 @@
       <img src="../assets/sleep_bed_svg.svg">
     </div>
 
-    
   </body>
 </template>
 
 <script>
+import { doc, getDoc, getFirestore, updateDoc } from '@firebase/firestore';
+import NFCReader from "../components/NFCReader.vue";
+import { getUser } from "../plugins/auth";
 export default {
-  name: 'Sleep',
-  data() {
-    return {
-      point: 0
-    }
-  },
-  mounted() {
-    setInterval(() => {
-      this.point++
-    }, 1000 * 60);
-  }
+    name: "Sleep",
+    data() {
+        return {
+            point: 0
+        };
+    },
+    mounted() {
+        setInterval(() => {
+            this.point++;
+        }, 1000 * 60);
+    },
+    methods: {
+      async updatePoints() {
+        const user = await getUser()
+        const docRef = doc(getFirestore(), 'users', user.uid)
+        const docSnap = await getDoc(docRef)
+        const currentPoints = docSnap.data().points || 0
+        await updateDoc(docRef, {
+          points: currentPoints + 1
+        })
+      }
+    },
+    components: { NFCReader }
 }
 </script>
 
