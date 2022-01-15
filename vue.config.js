@@ -10,7 +10,7 @@ module.exports = {
   pwa: {
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
-      exclude: /_redirects/
+      exclude: /_redirects|css/ 
     }
   }
 }
