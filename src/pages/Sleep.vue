@@ -3,7 +3,7 @@
     <NFCReader @addPoints="updatePoints" />   
     <div class="HP-container">  
       <div class="HP">
-        {{ point }}
+        {{ points }}
       </div>
       <div class="cloud-container">
         <img src="../assets/sleep_cloud_svg.svg" class="cloud">
@@ -27,20 +27,34 @@
 </template>
 
 <script>
-import { doc, getDoc, getFirestore, updateDoc } from '@firebase/firestore';
+import { doc, getDoc, getFirestore, updateDoc, doc, onSnapshot } from '@firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import NFCReader from "../components/NFCReader.vue";
 import { getUser } from "../plugins/auth";
+
 export default {
     name: "Sleep",
     data() {
         return {
-            point: 0
+            points: 0
         };
     },
-    mounted() {
-        setInterval(() => {
-            this.point++;
-        }, 1000 * 60);
+    async created(){
+      onAuthStateChanged(
+        getAuth(),
+        async (user) => {
+          console.log(user)
+          const uid = user.uid
+          console.log(user)
+          onSnapshot(doc(getFirestore(), 'users', uid),
+            (snapshot) => {
+              const d = snapshot.data()
+              this.points = d.points
+              console.debug(d)
+            })
+          })
+        }
+      )
     },
     methods: {
       async updatePoints() {
