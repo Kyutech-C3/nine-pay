@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>NFC Reader</h1>
-    <span v-if="reader">Reading...</span>
+    <div v-if="reader">Reading...</div>
+    <button class="btn btn-start" @click="startScan">開始</button>
   </div>
 </template>
 <script>
@@ -14,13 +15,17 @@ export default {
   data() {
     return {
       reading: false,
-      reader: null
+      reader: null,
+      interval: null
     }
   },
-  created() {
-    setInterval(this.scan, 1000 *  intervalMinutes)
+  beforeDestroy() {
+    clearInterval(this.interval)
   },
   methods: {
+    startScan(){
+      this.interval = setInterval(this.scan, 1000 *  intervalMinutes)
+    },
     listener({ serialNumber }) {
       console.log('!!')
       console.log(`> Serial Number: ${serialNumber}`);
@@ -40,3 +45,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.btn-start {
+  margin: 1rem 0;
+}
+</style>
