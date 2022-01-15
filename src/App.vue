@@ -24,8 +24,11 @@ export default {
 *, body {
   margin: 0;
 }
+#app,
+.btn {
+  font-family: 'Hachi Maru Pop', cursive;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

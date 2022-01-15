@@ -16,6 +16,7 @@
 <script></script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 .header {
   position: sticky;
   top: 0;
@@ -34,15 +35,20 @@
   font-weight: bold;
 }
 .logo-NINE {
-  font-size: 40px;
+  font-family: 'Roboto', 'sans-serif';
+  font-size: 33px;
+  margin-right: -.4em;
 }
 .logo-Pay {
+  font-family: 'Roboto', 'sans-serif';
   width: 65px;
-  height: 50px;
   margin-left: 20px;
-  font-size: 32px;
+  font-size: 28px;
   background: #06c755;
-  color: white;
+  color: #ffffff;
+  padding-top: .1em;
+  height: 1.3em;
+  border-radius: 5px;
 }
 .button {
   margin: 15px;

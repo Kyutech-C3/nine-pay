@@ -23,6 +23,9 @@ export default Vue.extend({
     console.debug(this.$refs.resultImg)
     this.startScan()
   },
+  beforeDestroy() {
+    this.stopScan()
+  }, 
   methods: {
     startScan() {
       this.code = "";

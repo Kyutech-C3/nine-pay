@@ -1,5 +1,6 @@
 <template>
   <body class="hachimaru">
+    <NFCReader @addPoints="updatePoints" />   
     <div class="HP-container">  
       <div class="HP">
         {{ points }}
@@ -9,64 +10,80 @@
       </div>
     </div>
     
-    <div>
-      <div class="border-radius1"></div>
-      <div class="border-radius2"></div>
-      <div class="border-radius3"></div>
+    <div class="sub-cloud-container">
+      <div class="box">
+        <p>寝るともらえる<br>HP(ﾊﾝﾓｯｸﾎﾟｲﾝﾄ)<br>1min = 1HP</p>
+      </div>
+      <div class="sub-cloud top-cloud"></div>
+      <div class="sub-cloud middle-cloud"></div>
+      <div class="sub-cloud bottom-cloud"></div>
     </div>
 
     <div class="bed">
       <img src="../assets/sleep_bed_svg.svg">
     </div>
 
-    <div class="box">
-      <p>寝るともらえる<br>HP(ﾊﾝﾓｯｸﾎﾟｲﾝﾄ)<br> 
-        1min = 1HP</p>
-    </div>
   </body>
 </template>
 
 <script>
-import { getFirestore, doc, onSnapshot} from 'firebase/firestore'
+import { doc, getDoc, getFirestore, updateDoc, doc, onSnapshot } from '@firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import NFCReader from "../components/NFCReader.vue";
+import { getUser } from "../plugins/auth";
+
 export default {
-  name: 'Sleep',
-  data() {
-    return {
-      points: 0
-    }
-  },
-  async created(){
-    onAuthStateChanged(
-      getAuth(),
-      async (user) => {
-        console.log(user)
-        const uid = user.uid
-        console.log(user)
-        onSnapshot(doc(getFirestore(), 'users', uid),
-        (snapshot) => {
-        const d = snapshot.data()
-        this.points = d.points
-        console.debug(d)
+    name: "Sleep",
+    data() {
+        return {
+            points: 0
+        };
+    },
+    async created(){
+      onAuthStateChanged(
+        getAuth(),
+        async (user) => {
+          console.log(user)
+          const uid = user.uid
+          console.log(user)
+          onSnapshot(doc(getFirestore(), 'users', uid),
+            (snapshot) => {
+              const d = snapshot.data()
+              this.points = d.points
+              console.debug(d)
+            })
+          })
+        }
+      )
+    },
+    methods: {
+      async updatePoints() {
+        const user = await getUser()
+        const docRef = doc(getFirestore(), 'users', user.uid)
+        const docSnap = await getDoc(docRef)
+        const currentPoints = docSnap.data().points || 0
+        await updateDoc(docRef, {
+          points: currentPoints + 1
         })
-      })
-  },
-  mounted() {
-    setInterval(() => {
-      this.point++
-    }, 1000 * 60);
-  }
+      }
+    },
+    components: { NFCReader }
 }
 </script>
 
 <style>
-body {
-  background-color: #bae8e8;
+#app {
+  background-color: #bae8e8 !important;
 }
 .bed img {
   position: relative;
   max-width: 80%;
-  top: 170px;
+  /* top: 0px; */
+}
+@media screen and (min-width: 500px) {
+  .bed img {
+    max-width: 400px;
+  }
 }
 .HP-container {
   font-size: 9rem;
@@ -105,51 +122,55 @@ body {
 .cloud-container {
   text-align: center;
 }
-.border-radius1 {
-  width: 90px;
-  height: 70px;
+@media screen and (min-width: 500px) {
+  .sub-cloud-container {
+    width: 513px;
+    margin: auto;
+  } 
+}
+.sub-cloud {
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   z-index: 1;
-  position: absolute;
-  left: 75%;
   transform: translate(-50%,-50%);
+  position: relative;
+}
+.top-cloud {
+  width: 90px;
+  height: 70px;
+  left: 75%;
   top: 36%;
 }
-.border-radius2 {
+.middle-cloud {
   width: 55px;
   height: 55px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50%;
-  position: absolute;
-  z-index: 10;
   left: 90%;
-  transform: translate(-50%,-50%);
   top: 45%;
 }
-.border-radius3 {
+.bottom-cloud {
   width: 40px;
   height: 40px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 50%;
-  position: absolute;
-  z-index: 10;
   left: 85%;
-  transform: translate(-50%,-50%);
   top: 55%;
 }
 .hachimaru {
   font-family: 'Hachi Maru Pop', cursive;
+  margin-top: 15px;
 }
 .box {
   padding: 0.5em 1em;
   margin: 2em 0;
   color: #474747;
-  background: whitesmoke; /*背景色*/
-  border-left: double 7px #4ec4d3; /*左線*/
-  border-right: double 7px #4ec4d3; /*右線*/
-  position: relative;
-  top: 150px;
+  background: whitesmoke;
+  border-left: double 7px #4ec4d3;
+  border-right: double 7px #4ec4d3;
+  position: absolute;
+  left: 15px;
+}
+@media screen and (min-width: 500px) {
+  .box {
+    left: 15%;
+  }
 }
 .box p {
   margin: 0; 
