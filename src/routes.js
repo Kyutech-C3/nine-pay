@@ -3,6 +3,7 @@ import Sleep from './pages/Sleep'
 import Login from './pages/Login'
 import BarcodeTest from './pages/BarcodeTest'
 import List from './pages/List'
+import Add from './pages/Add'
 
 export const routes = [
   {
@@ -28,6 +29,11 @@ export const routes = [
   {
     path: '/barcode_test',
     name: 'barcode_test',
-    component: BarcodeTest,
+    component: BarcodeTest
   },
+  {
+    path: '/add',
+    name: 'add',
+    component: Add
+  }
 ]

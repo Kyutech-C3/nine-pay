@@ -1,11 +1,10 @@
 <template>
   <div>
+    <h1>バーコードをかざしてください</h1>
     <div class="cameraArea" ref="cameraArea">
-      <img ref="resultImg" v-show="code.length" src="" alt="result" class="resultImg" />
+      <img v-show="code.length > 0" ref="resultImg" src="" class="resultImg" />
     </div>
-    <p v-if="code.length" class="getMessage">取得できました</p>
-    <p class="resultCode">{{ code }}</p>
-    <button @click="retryScan">Retry</button>
+    <button v-if="code.length > 0" class="retry-button" @click="retryScan">Retry</button>
   </div>
 </template>
 
@@ -52,7 +51,7 @@ export default Vue.extend({
           constraints: { facingMode: "environment" }
         },
         numOfWorkers: navigator.hardwareConcurrency || 4,
-        decoder: { readers: ["ean_reader", "ean_8_reader"] }
+        decoder: { readers: ["ean_reader"] }
       };
       this.Quagga.init(config, this.onInit);
     },
@@ -66,6 +65,12 @@ export default Vue.extend({
     },
     onDetected(success) {
       this.code = success.codeResult.code;
+      if(this.code.length !== 13) {
+        console.debug('code length is not 13')
+        return
+      }
+      console.debug(success.codeResult)
+      this.$emit('code', this.code)
       // 取得時の画像を表示
       // this.resultImg.setAttribute("src", this.Quagga.canvas.dom.image.toDataURL());
       console.debug(this.resultImg)
@@ -93,13 +98,6 @@ export default Vue.extend({
 .cameraArea .drawingBuffer {
   position: absolute;
 }
-button {
-  width: 100px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #333;
-  margin-top: 30px;
-}
 .resultImg {
   width: 100%;
 }
@@ -110,5 +108,8 @@ button {
 }
 .getMessage {
   color: red;
+}
+.retry-button {
+  margin-top: 1rem;
 }
 </style>
