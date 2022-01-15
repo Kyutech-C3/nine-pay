@@ -9,14 +9,22 @@ import './registerServiceWorker'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: 'history',
-  routes
+	mode: 'history',
+	routes
+})
+router.beforeEach((to, from, next) => {
+	onAuthStateChanged(getAuth(),async (user) => {
+		console.log(user)
+		if (to.name !== 'login' && user === null) next({ name: 'login' })
+		else next()
+	})
 })
 
 var firebaseConfig = {
