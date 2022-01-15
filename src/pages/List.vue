@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .wrapper {
   padding: 20px;
   margin-bottom: 120px;
