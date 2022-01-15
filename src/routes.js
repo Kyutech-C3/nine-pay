@@ -5,6 +5,7 @@ import BarcodeTest from './pages/BarcodeTest'
 import List from './pages/List'
 import Add from './pages/Add'
 import NFCTest from './pages/NFCTest'
+import Manage from './pages/Manage'
 
 export const routes = [
   {
@@ -41,5 +42,10 @@ export const routes = [
     path: '/nfc_test',
     name: 'nfc_test',
     component: NFCTest
+  },
+  {
+    path: '/manage',
+    name: 'manage',
+    component: Manage
   }
 ]
