@@ -13,13 +13,11 @@
 </template>
 
 <script>
-import HelloWorld from '../components/HelloWorld.vue'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import Button from '../components/ButtonCircle.vue'
 
 export default {
   components: {
-    HelloWorld,
     Button
   },
   async mounted() {
