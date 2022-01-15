@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <div class="button" v-if="$route.path !== '/'">
       <a href="/" class="back-button">もどる</a>
     </div>
@@ -13,6 +13,11 @@
 <script></script>
 
 <style scoped>
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
 .logo-wrapper {
   width: 100%;
   height: 78px;
