@@ -15,10 +15,21 @@
 <script>
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
 import Button from '../components/ButtonCircle.vue'
-
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 export default {
   components: {
     Button
+  },
+  created(){
+   
+    
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      console.log(user)
+      if(user == null){
+        this.$router.push("/Login")
+      }
+    })
   },
   async mounted() {
     const db = getFirestore()
