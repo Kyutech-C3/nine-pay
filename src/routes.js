@@ -1,5 +1,6 @@
 import Index from './pages/Index'
 import About from './pages/About'
+import Login from './pages/Login'
 
 export const routes = [
   {
@@ -11,5 +12,10 @@ export const routes = [
     path: '/about',
     name: 'about',
     component: About
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   },
 ]
