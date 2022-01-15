@@ -6,5 +6,11 @@ module.exports = {
         poll: true
       }
     }
+  },
+  pwa: {
+    workboxPluginMode: 'GenerateSW',
+    workboxOptions: {
+      exclude: /_redirects|css/ 
+    }
   }
 }
