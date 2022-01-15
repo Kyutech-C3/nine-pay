@@ -21,6 +21,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "firebase": "^9.6.3",
+    "quagga": "^0.12.1",
     "vue-router": "^3.5.3",
     "vue-template-compiler": "^2.6.11"
   },
