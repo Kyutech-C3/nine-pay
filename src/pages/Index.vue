@@ -1,18 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div class="main-area">
+        <Button text="ねる" link="/" class="button-wrapper" />
+        <div>
+            <div class="point">
+                63P
+            </div>
+        </div>
+        <Button text="冷蔵庫" link="/" class="button-wrapper" />
+    </div>
   </div>
 </template>
 
 <script>
 import HelloWorld from '../components/HelloWorld.vue'
 import { doc, getDoc, getFirestore } from 'firebase/firestore'
+import Button from '../components/ButtonCircle.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Button
   },
   async mounted() {
     const db = getFirestore()
@@ -26,5 +34,26 @@ export default {
 }
 </script>
 
+<style>
+* {
+    margin: 0;
+}
+</style>
+
 <style scoped>
+.main-area{
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: #e3f6f5;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+}
+.button-wrapper{
+    margin: 60px auto;
+}
+.point{
+    font-size: 40px;
+}
+
 </style>
