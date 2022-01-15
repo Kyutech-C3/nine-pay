@@ -1,5 +1,10 @@
-
 module.exports = {
+  pages: {
+    index: {
+      entry: "src/main.js",
+      title: "NINE Pay",
+    }
+  },
   configureWebpack: {
     devServer: {
       watchOptions: {
