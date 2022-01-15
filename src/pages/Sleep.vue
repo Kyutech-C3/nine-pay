@@ -1,18 +1,18 @@
 <template>
   <body class="hachimaru">
-    <NFCReader @addPoints="updatePoints" />   
-    <div class="HP-container">  
+    <NFCReader @addPoints="updatePoints" />
+    <div class="HP-container">
       <div class="HP">
         {{ points }}
       </div>
       <div class="cloud-container">
-        <img src="../assets/sleep_cloud_svg.svg" class="cloud">
+        <img src="../assets/sleep_cloud_svg.svg" class="cloud" />
       </div>
     </div>
-    
+
     <div class="sub-cloud-container">
       <div class="box">
-        <p>寝るともらえる<br>HP(ﾊﾝﾓｯｸﾎﾟｲﾝﾄ)<br>1min = 1HP</p>
+        <p>寝るともらえる<br />HP(ﾊﾝﾓｯｸﾎﾟｲﾝﾄ)<br />1min = 1HP</p>
       </div>
       <div class="sub-cloud top-cloud"></div>
       <div class="sub-cloud middle-cloud"></div>
@@ -20,54 +20,54 @@
     </div>
 
     <div class="bed">
-      <img src="../assets/sleep_bed_svg.svg">
+      <img src="../assets/sleep_bed_svg.svg" />
     </div>
-
   </body>
 </template>
 
 <script>
-import { doc, getDoc, getFirestore, updateDoc, onSnapshot } from '@firebase/firestore';
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+  onSnapshot,
+} from '@firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import NFCReader from "../components/NFCReader.vue";
-import { getUser } from "../plugins/auth";
+import NFCReader from '../components/NFCReader.vue'
+import { getUser } from '../plugins/auth'
 
 export default {
-    name: "Sleep",
-    data() {
-        return {
-            points: 0
-        };
+  name: 'Sleep',
+  data() {
+    return {
+      points: 0,
+    }
+  },
+  async created() {
+    onAuthStateChanged(getAuth(), async (user) => {
+      console.log(user)
+      const uid = user.uid
+      console.log(user)
+      onSnapshot(doc(getFirestore(), 'users', uid), (snapshot) => {
+        const d = snapshot.data()
+        this.points = d.points
+        console.debug(d)
+      })
+    })
+  },
+  methods: {
+    async updatePoints() {
+      const user = await getUser()
+      const docRef = doc(getFirestore(), 'users', user.uid)
+      const docSnap = await getDoc(docRef)
+      const currentPoints = docSnap.data().points || 0
+      await updateDoc(docRef, {
+        points: currentPoints + 1,
+      })
     },
-    async created(){
-      onAuthStateChanged(
-        getAuth(),
-        async (user) => {
-          console.log(user)
-          const uid = user.uid
-          console.log(user)
-          onSnapshot(doc(getFirestore(), 'users', uid),
-            (snapshot) => {
-              const d = snapshot.data()
-              this.points = d.points
-              console.debug(d)
-            }
-          )
-        }
-      )
-    },
-    methods: {
-      async updatePoints() {
-        const user = await getUser()
-        const docRef = doc(getFirestore(), 'users', user.uid)
-        const docSnap = await getDoc(docRef)
-        const currentPoints = docSnap.data().points || 0
-        await updateDoc(docRef, {
-          points: currentPoints + 1
-        })
-      }
-    },
-    components: { NFCReader }
+  },
+  components: { NFCReader },
 }
 </script>
 
@@ -96,7 +96,7 @@ export default {
   position: absolute;
   z-index: 10;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   top: 40%;
 }
 @media screen and (max-width: 500px) {
@@ -126,32 +126,53 @@ export default {
   .sub-cloud-container {
     width: 513px;
     margin: auto;
-  } 
+  }
 }
 .sub-cloud {
   background-color: rgb(255, 255, 255);
   border-radius: 50%;
   z-index: 1;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   position: relative;
 }
 .top-cloud {
   width: 90px;
   height: 70px;
   left: 75%;
-  top: 36%;
+  top: -30px;
+  animation: top-cloud 3s infinite;
+  animation-timing-function: linear;
 }
 .middle-cloud {
   width: 55px;
   height: 55px;
   left: 90%;
-  top: 45%;
+  top: -20px;
+  animation: middle-cloud 3s infinite;
+  animation-timing-function: linear;
 }
 .bottom-cloud {
   width: 40px;
   height: 40px;
   left: 85%;
   top: 55%;
+  animation: bottom-cloud 3s infinite;
+  animation-timing-function: ease-out;
+}
+@keyframes bottom-cloud {
+  15% {
+    transform: scale(1.4);
+  }
+}
+@keyframes middle-cloud {
+  50% {
+    transform: scale(1.4);
+  }
+}
+@keyframes top-cloud {
+  75% {
+    transform: scale(1.3);
+  }
 }
 .hachimaru {
   font-family: 'Hachi Maru Pop', cursive;
@@ -173,7 +194,7 @@ export default {
   }
 }
 .box p {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 </style>
