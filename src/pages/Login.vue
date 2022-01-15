@@ -7,6 +7,7 @@
 
 <script>
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore'
 
 export default {
   name: 'Login',
@@ -23,6 +24,9 @@ export default {
           const user = result.user
           console.log(token)
           console.log(user)
+          this.addUser(user.uid, user.displayName).then(() => {
+            this.$router.push('/')
+          })
         }).catch((error) => {
           // Handle Errors here.
           const errorCode = error.code
@@ -42,8 +46,20 @@ export default {
         console.log('success logout')
       }).catch((error) => {
         // An error happened.
-        console.log(error)
+        console.error(error)
       })
+    },
+    async addUser(uid, name) {
+      const db = getFirestore()
+      const docRef = doc(db, 'users', uid)
+      const docSnap = await getDoc(docRef)
+
+      if(!docSnap.exists()) {
+        await setDoc(docRef, {
+          name: name,
+          points: 0
+        })
+      }
     }
   }
 }
