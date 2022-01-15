@@ -1,14 +1,14 @@
 <template>
   <div class="header">
     <a v-if="$route.path !== '/'" class="button back" @click="$router.back()">
-      <font-awesome-icon icon="arrow-left" size="3x" />
+      <font-awesome-icon icon="arrow-left" size="2x" />
     </a>
     <div class="logo-wrapper">
       <p class="logo-NINE">NINE</p>
       <p class="logo-Pay">Pay</p>
     </div>
     <router-link v-if="$route.path === '/list'" to="/add" class="button add">
-      <font-awesome-icon icon="plus" size="3x" />
+      <font-awesome-icon icon="plus" size="2x" />
     </router-link>
   </div>
 </template>
@@ -37,7 +37,7 @@
 .logo-NINE {
   font-family: 'Roboto', 'sans-serif';
   font-size: 33px;
-  margin-right: -.4em;
+  margin-right: -0.4em;
 }
 .logo-Pay {
   font-family: 'Roboto', 'sans-serif';
@@ -46,12 +46,12 @@
   font-size: 28px;
   background: #06c755;
   color: #ffffff;
-  padding-top: .1em;
+  padding-top: 0.1em;
   height: 1.3em;
   border-radius: 5px;
 }
 .button {
-  margin: 15px;
+  margin: 23px;
   position: absolute;
   top: 0;
   transition: 0.2s;

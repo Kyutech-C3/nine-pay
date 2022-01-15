@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
-    <h1>冷蔵庫</h1>
-    <h2>{{points}}P</h2>
-
+    <div class="topic">
+      <a>冷蔵庫</a><br />
+      <a>{{ points }}P</a>
+    </div>
     <table class="tbl">
       <thead>
         <tr>
@@ -23,37 +24,44 @@
 </template>
 
 <script>
-import { getDocs,getDoc, getFirestore, collection, doc} from 'firebase/firestore'
+import {
+  getDocs,
+  getDoc,
+  getFirestore,
+  collection,
+  doc,
+} from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 export default {
   data() {
     return {
       datas: [],
       points: -1,
-      temppoints: -1
+      temppoints: -1,
     }
   },
   async created() {
-    onAuthStateChanged(
-      getAuth(),
-      async (user) => {
-        console.log(user)
-        const uid = user.uid
-        const thingsCollection = collection(getFirestore(), 'users', uid, 'things')
-        const docs = await getDocs(thingsCollection)
-        this.datas = docs.docs.map(d => d.data())
-        console.debug(this.datas)
-        console.log(user)
-        this.user = user
-        const docref = doc(getFirestore(), 'users', uid)
-        const docSnap = await getDoc(docref)
-        const d = docSnap.data()
-        this.points = d.points
-        console.debug(d)
-      })
-    },
-  
-  
+    onAuthStateChanged(getAuth(), async (user) => {
+      console.log(user)
+      const uid = user.uid
+      const thingsCollection = collection(
+        getFirestore(),
+        'users',
+        uid,
+        'things'
+      )
+      const docs = await getDocs(thingsCollection)
+      this.datas = docs.docs.map((d) => d.data())
+      console.debug(this.datas)
+      console.log(user)
+      this.user = user
+      const docref = doc(getFirestore(), 'users', uid)
+      const docSnap = await getDoc(docref)
+      const d = docSnap.data()
+      this.points = d.points
+      console.debug(d)
+    })
+  },
 }
 </script>
 
@@ -62,7 +70,9 @@ export default {
   padding: 20px;
   margin-bottom: 120px;
 }
-
+.topic {
+  font-size: 40px;
+}
 .tbl {
   width: 100%;
   border-spacing: 0;
