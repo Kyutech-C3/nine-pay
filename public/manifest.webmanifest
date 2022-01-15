@@ -6,6 +6,7 @@
     "start_url": "/",
     "name": "nine-pay",
     "short_name": "nine-pay",
+    "gcm_sender_id": "160770013922",
     "icons": [
         {
             "src": "./images/icons/icon-192x192.png",
