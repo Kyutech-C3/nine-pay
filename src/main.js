@@ -5,7 +5,10 @@ import { routes } from './routes'
 import { initializeApp } from 'firebase/app'
 import { getMessaging, getToken } from 'firebase/messaging'
 import authState from './plugins/auth'
-import './registerServiceWorker';
+import './registerServiceWorker'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.config.productionTip = false
 
@@ -46,6 +49,10 @@ getToken(messaging, { vapidKey: process.env.VUE_APP_PUBLIC_VAPID_KEY })
 	})
 
 Vue.use(authState)
+
+library.add(faArrowLeft, faPlus)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 new Vue({
   router,
