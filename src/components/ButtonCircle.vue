@@ -1,6 +1,6 @@
 <template>
   <router-link class="button-circle" :to="link">
-    {{text}}
+    {{ text }}
   </router-link>
 </template>
 
@@ -8,8 +8,8 @@
 export default {
   props: {
     text: String,
-    link: String
-  }
+    link: String,
+  },
 }
 </script>
 
@@ -28,7 +28,10 @@ export default {
   overflow: hidden;
   box-shadow: 0px 0px 0px 5px #fffde8;
   border: dashed 2px #ffb03f;
-  transition: .4s;
+  transition: 0.4s;
   box-shadow: 3px 3px 10px silver;
+}
+.button-circle:hover {
+  background-color: #f3c590;
 }
 </style>

@@ -96,7 +96,7 @@ export default {
   text-align: center;
   overflow: hidden;
   transition: 0.4s;
-  border: none;
+  border: dashed 2px rgb(173, 173, 173);
   box-shadow: 3px 3px 10px silver;
   margin: 40px;
 }
