@@ -1,7 +1,7 @@
 <template>
   <div class="main-area">
     <Button class="button-wrapper" text="ねる" link="/sleep" />
-    <p class="point">{{ points }}P</p>
+    <p class="point">{{ points }}HP</p>
     <Button class="button-wrapper" text="冷蔵庫" link="/list" />
   </div>
 </template>

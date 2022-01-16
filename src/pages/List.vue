@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="topic">
       <a>冷蔵庫</a><br />
-      <a>{{ points }}P</a>
+      <a>{{ points }}HP</a>
     </div>
     <table class="tbl">
       <thead>
