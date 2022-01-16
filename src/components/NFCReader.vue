@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button class="btn btn-start" :class="{sleeping: sleeping}" :disabled="reading" @click="startScan" >
-      {{ reading ? '検出中' : '開始' }}
-    </button>
+    <!-- <button class="btn btn-start" :class="{sleeping: sleeping}" :disabled="reading" @click="startScan" > -->
+    <!-- {{ reading ? '検出中' : '開始' }}
+    </button> -->
   </div>
 </template>
 <script>
@@ -17,11 +17,11 @@ export default {
       reading: false,
       reader: null,
       sleeping: false,
-      interval: null
+      interval: null,
     }
   },
   created() {
-    setInterval(this.scan, 1000 *  intervalMinutes)
+    setInterval(this.scan, 1000 * intervalMinutes)
   },
   beforeDestroy() {
     this.reading = false
@@ -29,13 +29,13 @@ export default {
     clearInterval(this.interval)
   },
   methods: {
-    startScan(){
-      this.interval = setInterval(this.scan, 1000 *  intervalMinutes)
+    startScan() {
+      this.interval = setInterval(this.scan, 1000 * intervalMinutes)
       this.reading = true
     },
     listener({ serialNumber }) {
       console.log('!!')
-      console.log(`> Serial Number: ${serialNumber}`);
+      console.log(`> Serial Number: ${serialNumber}`)
       this.$emit('addPoints', serialNumber)
       this.sleeping = true
       this.reader.removeEventListener('reading', this.listener)
@@ -43,15 +43,15 @@ export default {
     },
     async scan() {
       console.log('check...')
-      if(this.reader === null) {
+      if (this.reader === null) {
         this.sleeping = false
         console.debug('NFC tag not detected...')
         this.reader = new NDEFReader()
         await this.reader.scan()
-        this.reader.addEventListener('reading', this.listener);
+        this.reader.addEventListener('reading', this.listener)
       }
     },
-  }
+  },
 }
 </script>
 <style scoped>
