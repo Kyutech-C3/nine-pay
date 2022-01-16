@@ -17,6 +17,29 @@ admin.initializeApp();
 
 const rateThingMinute = 1;
 
+//push通知実行メソッド
+const pushMessage = (fcmToken, text) => ({
+  notification: {
+    title: '新しいオファーを受信しました。',
+    body:  `${text}`,
+  },
+  apns: {
+    headers: {
+      'apns-priority': '10'
+    },
+    payload: {
+      aps: {
+        badge: 9999,
+        sound: 'default'
+      }
+    }
+  },
+  data: {
+    data: 'test',
+  },
+  token: fcmToken
+});
+
 /**
  * 受け取ったUserのポイントを計算し反映する
  * @param {_firestore.DocumentReference<_firestore.DocumentData>} user
@@ -34,6 +57,7 @@ async function calcPoints(
   const currentPoints = userDoc.get("points") || 0;
   if(currentPoints <= 0) {
     functions.logger.log(`${userDoc.get("name")}'s points has exhausted`)
+    admin.messaging().send(pushMessage(userDoc.get("token"), '通知'))
     return
   }
   user.update({

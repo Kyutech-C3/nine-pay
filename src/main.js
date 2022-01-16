@@ -4,12 +4,13 @@ import App from './App.vue'
 import { routes } from './routes'
 import { initializeApp } from 'firebase/app'
 import { getMessaging, getToken } from 'firebase/messaging'
-import authState from './plugins/auth'
+import authState, { getUser } from './plugins/auth'
 import './registerServiceWorker'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getFirestore, doc, setDoc } from 'firebase/firestore'
 
 Vue.config.productionTip = false
 
@@ -44,10 +45,15 @@ export { firebaseApp }
 const messaging = getMessaging()
 // Get token
 getToken(messaging, { vapidKey: process.env.VUE_APP_PUBLIC_VAPID_KEY })
-	.then((currentToken) => {
+	.then(async (currentToken) => {
 		if (currentToken) {
 			// Send the token to your server and update the UI if necessary
 			console.log(`FCM TOKEN: ${currentToken}`)
+			const user = await getUser()
+      const docRef = doc(getFirestore(), 'users', user.uid)
+			await setDoc(docRef, {
+				'token': currentToken
+			}, { merge: true })
 		} else {
 			// Show permission request UI
 			console.log('No registration token available. Request permission to generate one.')
