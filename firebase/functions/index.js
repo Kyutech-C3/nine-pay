@@ -46,7 +46,7 @@ const pushMessage = (fcmToken, text) => ({
  *  ポイント計算を行うUserのReference
  */
 async function calcPoints(
-    user
+  user
 ) {
   const coll = user.collection("things");
   const docs = await coll.get();
@@ -58,7 +58,7 @@ async function calcPoints(
   if(currentPoints <= 0) {
     functions.logger.log(`${userDoc.get("name")}'s points has exhausted`)
     admin.messaging().send(pushMessage(userDoc.get("token"), '通知'))
-    return
+    return true
   }
   user.update({
     points: currentPoints - consumePoints,
@@ -67,6 +67,16 @@ async function calcPoints(
       `${userDoc.get("name")} has consumed ${consumePoints}`,
       `points -> ${currentPoints - consumePoints}`
   );
+
+  return false
+}
+
+async function applyAlertFlag(alertFlag) {
+  const firestore = _firestore();
+  const docRef = firestore.doc("state/1");
+  await docRef.update({
+    alertFlag
+  })
 }
 
 exports.scheduledPointCalculator =
@@ -76,8 +86,17 @@ exports.scheduledPointCalculator =
 
         const coll = firestore.collection("users");
         const docs = await coll.get();
-        docs.forEach((d) => {
-          calcPoints(d.ref);
-        });
+
+        let alertFlag = false;
+        await Promise.all(
+          docs.docs.map(
+            async (d) => {
+              const flag = await calcPoints(d.ref);
+              if(flag) alertFlag = true
+            }
+          )
+        );
+
+        await applyAlertFlag(alertFlag)
       }
   );
