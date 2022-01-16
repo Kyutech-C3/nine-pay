@@ -1,6 +1,9 @@
 <template>
   <body class="hachimaru">
     <NFCReader @addPoints="updatePoints" />
+    <div v-if="!available" class="alert">
+      <div class="text">この端末は対応していません</div>
+    </div>
     <div class="HP-container">
       <div class="HP">
         {{ points }}
@@ -42,6 +45,7 @@ export default {
   data() {
     return {
       points: 0,
+      available: true,
     }
   },
   async created() {
@@ -68,6 +72,10 @@ export default {
     },
   },
   components: { NFCReader },
+  mounted() {
+    this.available = 'NDEFReader' in window
+    console.debug(this.available)
+  },
 }
 </script>
 
@@ -196,5 +204,40 @@ export default {
 .box p {
   margin: 0;
   padding: 0;
+}
+.alert {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: white;
+  background: #f85e4d;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.5);
+  animation: hurueru 0.1s infinite;
+}
+
+.text {
+  font-size: 50px;
+
+  transform-origin: 50% 50%;
+  display: inline-block;
+}
+
+@keyframes hurueru {
+  0% {
+    transform: translate(0px, 0px) rotateZ(0deg);
+  }
+  25% {
+    transform: translate(2px, 2px) rotateZ(1deg);
+  }
+  50% {
+    transform: translate(0px, 2px) rotateZ(0deg);
+  }
+  75% {
+    transform: translate(2px, 0px) rotateZ(-1deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotateZ(0deg);
+  }
 }
 </style>
