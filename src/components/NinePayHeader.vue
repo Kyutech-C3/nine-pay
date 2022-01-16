@@ -24,7 +24,7 @@
   width: 100%;
   height: 78px;
   background: white;
-  border-bottom: solid 2px #2c3e50;
+  box-shadow: 0 3px 10px silver;
 }
 .logo-wrapper {
   height: 100%;
