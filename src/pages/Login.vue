@@ -55,6 +55,7 @@ export default {
         .then(() => {
           // Sign-out successful.
           console.log('success logout')
+          alert('ログアウトしました')
         })
         .catch((error) => {
           // An error happened.
