@@ -9,14 +9,14 @@
         <tr>
           <th>id</th>
           <th>もの</th>
-          <th>コード</th>
+          <th>じかん</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(data, index) in datas" :key="data.name">
           <td>{{ index + 1 }}</td>
           <td>{{ data.name }}</td>
-          <td>{{ data.barcode }}</td>
+          <td>{{ Hour(data.createdAt.seconds)}}:{{ Min(data.createdAt.seconds) }}:{{ Sec(data.createdAt.seconds) }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +37,6 @@ export default {
     return {
       datas: [],
       points: -1,
-      temppoints: -1,
     }
   },
   async created() {
@@ -59,9 +58,33 @@ export default {
       const docSnap = await getDoc(docref)
       const d = docSnap.data()
       this.points = d.points
-      console.debug(d)
     })
   },
+  methods:{
+
+    Hour(timestamp){
+      const min = (this.Now() - timestamp - this.Sec(timestamp)) / 60
+      const temp = min % 60
+      const hour = (min - temp) / 60
+      return hour
+    },
+    Min(timestamp){
+      const min = (this.Now() - timestamp - this.Sec(timestamp)) % 60
+      console.debug(this.Now())
+      console.debug(timestamp)
+      return min;
+    },
+    Sec(timestamp){
+      const sec = (this.Now() - timestamp) % 60
+      return sec;
+    },
+    Now(){
+      var now = Date.now()
+      const temp = now % 1000
+      now = (now - temp) / 1000
+      return now
+    }
+  }
 }
 </script>
 
