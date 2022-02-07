@@ -1,7 +1,7 @@
 <template>
   <vue100vh :css="{ height: '100rvh' }" id="app">
     <NinePayHeader />
-    <router-view />
+    <transition mode="out-in"><router-view /></transition>
   </vue100vh>
 </template>
 
@@ -21,7 +21,8 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
 
-*, body {
+*,
+body {
   margin: 0;
 }
 #app,
@@ -37,12 +38,20 @@ export default {
 }
 
 .btn {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: #bbb;
   border: none;
   font-weight: 800;
   box-shadow: 3px 3px 10px silver;
   color: #202020;
   border-radius: 8px;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s;
+}
+.v-enter,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
