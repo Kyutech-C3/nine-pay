@@ -1,4 +1,7 @@
-# studio9-hackathon
+# NINE Pay
+
+- [Topa'z](https://topaz.dev/projects/022e82f3a87beb91c7c7)
+- [ハッカソンイベント詳細](https://hackz.connpass.com/event/235830/)
 
 ## Project setup
 ```
